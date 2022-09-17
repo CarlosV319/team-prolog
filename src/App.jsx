@@ -1,9 +1,10 @@
+import { Register } from "./auth/pages/RegisterPage"
 
 
 
 
 export const App = () => {
   return (
-    <div>App</div>
+    <Register />
   )
 }
