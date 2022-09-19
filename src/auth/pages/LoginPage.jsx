@@ -24,7 +24,9 @@ export const LoginPage = () => {
                     <p>Ingreso</p>
                     <form onSubmit={loginSubmit}>
                         <div className="group-form">
-                            <i className="fa-solid fa-envelope"></i>
+                            <div className="icon-form">
+                                <i className="fa-solid fa-envelope"></i>
+                            </div>
                             <input
                                 type="email"
                                 placeholder="Email"
@@ -34,7 +36,9 @@ export const LoginPage = () => {
                             />
                         </div>
                         <div className="group-form">
-                            <i className="fa-solid fa-lock"></i>
+                            <div className="icon-form">
+                                <i className="fa-solid fa-lock"></i>
+                            </div>
                             <input
                                 type="password"
                                 placeholder="Contraseña"
@@ -51,16 +55,17 @@ export const LoginPage = () => {
                         </div>
                     </form>
                     <p className="text-2">o continuar con estos perfiles sociales</p>
-                    <div className="continer-icon">
-                        <div className="icon-style">
-                            <i className="fa-brands fa-github"></i>
-                        </div>
-                        <br />
-                        <div className="icon-style">
-                            <i className="fa-brands fa-google"></i>
-                        </div>
+                </div>
+                <div className="continer-icon">
+                    <div className="icon-style">
+                        <i className="fa-brands fa-github"></i>
+                    </div>
+                    <div className="icon-style">
+                        <i className="fa-brands fa-google"></i>
                     </div>
                 </div>
+                <p className="text-2">¿No tienes una cuenta? <span>Registrate</span></p>
+
             </div>
         </div>
     );
