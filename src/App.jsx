@@ -1,6 +1,7 @@
 import { PerfilPage } from "./auth/pages/PerfilPage"
 import { FormPerfil } from "./component/FormPerfil"
 import { Register } from "./auth/pages/RegisterPage"
+import { LoginPage } from "./auth/pages/LoginPage"
 
 
 
@@ -8,9 +9,10 @@ import { Register } from "./auth/pages/RegisterPage"
 export const App = () => {
   return (
     <>
-    <Register />
-    {/* <PerfilPage /> */}
-    {/* <FormPerfil /> */}
+      <Register />
+      <LoginPage />
+      {/* <PerfilPage /> */}
+      {/* <FormPerfil /> */}
     </>
   )
 }

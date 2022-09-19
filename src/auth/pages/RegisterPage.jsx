@@ -42,7 +42,7 @@ export const Register = () => {
         </div>
 
         <p className="text-2">¿Ya tiene una cuenta? <span>Ingresa</span></p>
-      
+
       </div>
     </div>
   );
