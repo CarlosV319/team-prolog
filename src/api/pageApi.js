@@ -3,7 +3,7 @@ import { getEnvVariables } from '../helpers/index';
 
 const { VITE_API_URL } = getEnvVariables();
 
-const pageApi = axios.create({
+export const pageApi = axios.create({
     baseURL: VITE_API_URL
 });
 
@@ -19,4 +19,4 @@ pageApi.interceptors.request.use(config => {
 })
 
 
-export default pageApi;
+
