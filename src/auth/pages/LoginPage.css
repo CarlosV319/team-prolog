@@ -51,7 +51,7 @@ form input {
 	margin-left: 5px;
 }
 
-form .group-form {
+form .login-form {
 	margin-top: 15px;
 	width: var(--width-input);
 	height: 35px;
