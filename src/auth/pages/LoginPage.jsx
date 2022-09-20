@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import './LoginPage.css'
 
-import { useForm, useAuthStore} from '../../hooks';
+import { useForm, useAuthStore } from '../../hooks';
 
 const loginFormFields = {
     loginEmail: '',
@@ -10,10 +10,7 @@ const loginFormFields = {
 
 export const LoginPage = () => {
     const { errorMessage, startLogin } = useAuthStore();
-    const {
-        loginEmail,
-        loginPassword,
-        onInputChange: onLoginInputChange } = useForm(loginFormFields);
+    const { loginEmail, loginPassword, onInputChange: onLoginInputChange } = useForm(loginFormFields);
 
     const loginSubmit = (event) => {
         event.preventDefault();
