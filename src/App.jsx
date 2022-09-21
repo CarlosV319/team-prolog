@@ -1,18 +1,17 @@
-import { PerfilPage } from "./auth/pages/PerfilPage";
-import { FormPerfil } from "./component/FormPerfil";
-import { Register } from "./auth/pages/RegisterPage";
-import { LoginPage } from "./auth/pages/LoginPage";
-
-
+import { Provider } from 'react-redux';
+import { BrowserRouter } from 'react-router-dom';
+import { AppRouter } from './router';
+import { store } from './store';
 
 
 export const App = () => {
   return (
     <>
-     {/*  <Register /> */}
-      <LoginPage />
-      {/* <PerfilPage /> */}
-      {/* <FormPerfil /> */}
+      <Provider store={ store }>
+        <BrowserRouter>
+          <AppRouter/>    
+        </BrowserRouter>
+      </Provider>
     </>
   )
 }

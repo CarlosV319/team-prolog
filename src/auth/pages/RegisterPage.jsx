@@ -1,6 +1,8 @@
+import { Link as RouterLink } from 'react-router-dom';
+import { Link } from '@mui/material';
 
-
-export const Register = () => {
+export const RegisterPage = () => {
+  
   return (
     <div className="container">
       <div className="container-register">
@@ -41,7 +43,14 @@ export const Register = () => {
           </div>
         </div>
 
-        <p className="text-2">¿Ya tiene una cuenta? <span>Ingresa</span></p>
+        <p className="text-2">¿Ya tiene una cuenta? 
+        <Link
+              component={RouterLink}
+              color='inherit'
+              to='/auth/login'>
+          <span>Ingresar</span>
+        </Link>
+        </p>
 
       </div>
     </div>

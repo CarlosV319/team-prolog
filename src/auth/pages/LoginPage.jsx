@@ -1,7 +1,11 @@
 import React, { useEffect } from 'react'
-import './LoginPage.css'
+import { Link as RouterLink } from 'react-router-dom';
+import { Link } from '@mui/material';
+
 
 import { useForm, useAuthStore } from '../../hooks';
+import './LoginPage.css';
+
 
 const loginFormFields = {
     loginEmail: '',
@@ -74,7 +78,14 @@ export const LoginPage = () => {
                         <i className="fa-brands fa-google"></i>
                     </div>
                 </div>
-                <p className="text-2">¿No tienes una cuenta? <span>Registrate</span></p>
+                <p className="text-2">¿No tienes una cuenta? 
+                    <Link 
+                        component={ RouterLink }
+                        color='inherit' 
+                        to='/auth/register'>
+                            <span>Registrate</span>
+                    </Link>
+                </p>
 
             </div>
         </div>
