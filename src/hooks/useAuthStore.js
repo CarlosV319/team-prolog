@@ -24,17 +24,17 @@ export const useAuthStore = () => {
 
     }
 
-    const startRegister = async ({ email, password }) => {
+    const startRegister = async (User) => {
         dispatch(onChecking());
         try {
-            const { data } = await pageApi.post('/auth/register', { email, password });
+            const { data } = await pageApi.post('/auth/register', { ...User});
             localStorage.setItem('token', data.token);
             localStorage.setItem('token-init-date', new Date().getTime());
             dispatch(onLogin({ name: data.name, uid: data.uid }));
-            console.log(data)
+           
 
         } catch (error) {
-            dispatch(onLogout(error.response.data?.msg || '--'));
+            dispatch(onLogout(error.response.data?.msg || 'add valid email or password'));
             setTimeout(() => {
                 dispatch(clearErrorMessage());
             }, 10);

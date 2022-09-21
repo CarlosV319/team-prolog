@@ -1,6 +1,8 @@
-import { useEffect } from 'react';
+import { useEffect } from "react";
 import { useForm, useAuthStore } from "../../hooks";
-import Swal from 'sweetalert2';
+import { useGoogleLogin } from "@react-oauth/google";
+import axios from "axios";
+import Swal from "sweetalert2";
 
 const registerFormFields = {
   registerEmail: "",
@@ -8,6 +10,7 @@ const registerFormFields = {
 };
 
 export const Register = () => {
+  console.log();
   const { errorMessage, startRegister } = useAuthStore();
   const {
     registerEmail,
@@ -15,20 +18,43 @@ export const Register = () => {
     onInputChange: onRegisterInputChange,
   } = useForm(registerFormFields);
 
+  const login = useGoogleLogin({
+    onSuccess: async (response) => {
+      try {
+        const res = await axios.get(
+          "https://www.googleapis.com/oauth2/v3/userinfo",
+          {
+            headers: {
+              Authorization: `Bearer ${response.access_token}`,
+            },
+          }
+        );
+        console.log(res.data);
+        startRegister({
+          name: res.data.name,
+          email: res.data.email,
+          password: res.data.sub,
+          avatar: res.data.picture,
+          google: true,
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    },
+  });
+
   const registerSubmit = (event) => {
     event.preventDefault();
     startRegister({
       email: registerEmail,
       password: registerPassword,
     });
-    
   };
   useEffect(() => {
-    if ( errorMessage !== undefined ) {
-      Swal.fire('Error en la autenticación', errorMessage, 'error');
-    }    
-  }, [errorMessage])
-  
+    if (errorMessage !== undefined) {
+      Swal.fire("Error en la autenticación", errorMessage, "error");
+    }
+  }, [errorMessage]);
 
   return (
     <div className="container">
@@ -73,9 +99,9 @@ export const Register = () => {
           <div className="icon-style">
             <i className="fa-brands fa-github"></i>
           </div>
-          <div className="icon-style">
+          <button className="icon-style" onClick={login}>
             <i className="fa-brands fa-google"></i>
-          </div>
+          </button>
         </div>
 
         <p className="text-2">

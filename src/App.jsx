@@ -10,9 +10,9 @@ export const App = () => {
   return (
     <>
       <Register />
-      {/* <LoginPage /> */}
-      {/* <PerfilPage /> */}
-      {/* <FormPerfil /> */}
+      <LoginPage />
+      <PerfilPage />
+      <FormPerfil />
     </>
   )
 }
