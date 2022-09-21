@@ -1,6 +1,11 @@
-import React from 'react'
-import './LoginPage.css'
-import { useForm } from '../../hooks';
+import React, { useEffect } from 'react'
+import { Link as RouterLink } from 'react-router-dom';
+import { Link } from '@mui/material';
+
+
+import { useForm, useAuthStore } from '../../hooks';
+import './LoginPage.css';
+
 
 const loginFormFields = {
     loginEmail: '',
@@ -8,14 +13,23 @@ const loginFormFields = {
 }
 
 export const LoginPage = () => {
-
+    const { errorMessage, startLogin } = useAuthStore();
     const { loginEmail, loginPassword, onInputChange: onLoginInputChange } = useForm(loginFormFields);
-
 
     const loginSubmit = (event) => {
         event.preventDefault();
-        startLogin({ email: loginEmail, password: loginPassword });
-    }
+        startLogin({
+            email: loginEmail,
+            password: loginPassword,
+        });
+
+    };
+    useEffect(() => {
+        if (errorMessage !== undefined) {
+            Swal.fire('Error en la autenticación', errorMessage, 'error');
+        }
+    }, [ errorMessage ])
+
 
     return (
         <div className="container">
@@ -24,7 +38,9 @@ export const LoginPage = () => {
                     <p>Ingreso</p>
                     <form onSubmit={loginSubmit}>
                         <div className="group-form">
-                            <i className="fa-solid fa-envelope"></i>
+                            <div className="icon-form">
+                                <i className="fa-solid fa-envelope"></i>
+                            </div>
                             <input
                                 type="email"
                                 placeholder="Email"
@@ -34,7 +50,9 @@ export const LoginPage = () => {
                             />
                         </div>
                         <div className="group-form">
-                            <i className="fa-solid fa-lock"></i>
+                            <div className="icon-form">
+                                <i className="fa-solid fa-lock"></i>
+                            </div>
                             <input
                                 type="password"
                                 placeholder="Contraseña"
@@ -51,16 +69,24 @@ export const LoginPage = () => {
                         </div>
                     </form>
                     <p className="text-2">o continuar con estos perfiles sociales</p>
-                    <div className="continer-icon">
-                        <div className="icon-style">
-                            <i className="fa-brands fa-github"></i>
-                        </div>
-                        <br />
-                        <div className="icon-style">
-                            <i className="fa-brands fa-google"></i>
-                        </div>
+                </div>
+                <div className="continer-icon">
+                    <div className="icon-style">
+                        <i className="fa-brands fa-github"></i>
+                    </div>
+                    <div className="icon-style">
+                        <i className="fa-brands fa-google"></i>
                     </div>
                 </div>
+                <p className="text-2">¿No tienes una cuenta? 
+                    <Link 
+                        component={ RouterLink }
+                        color='inherit' 
+                        to='/auth/register'>
+                            <span>Registrate</span>
+                    </Link>
+                </p>
+
             </div>
         </div>
     );

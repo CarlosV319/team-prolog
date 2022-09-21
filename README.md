@@ -1,2 +1,2 @@
 # team-prolog
-challenger
+challenge

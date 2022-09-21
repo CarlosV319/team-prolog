@@ -1,18 +1,18 @@
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
+
 import { useProfileStore } from '../../hooks/useProfileStore';
-import { Link } from 'react-router-dom';
 
 
-export const PerfilPage = () => {
+export const EditProfilePage = () => {
 
-  const { setUserProfile } = useProfileStore();
+//   const { setUserProfile } = useProfileStore();
   const { profileUser } = useSelector( state => state.profile );
 
-  useEffect( () => {
+//   useEffect( () => {
 
-    setUserProfile();
-  }, []);
+//     setUserProfile();
+//   }, []);
 
   return (
     <div className="container">
@@ -32,9 +32,7 @@ export const PerfilPage = () => {
                 La información no puede ser visible para otras personas
               </p>
             </div>
-            <Link to={'/profile/' + profileUser?.uid }>
-              <button className="btn-edit">Editar</button>
-            </Link>
+            <button className="btn-edit">Editar</button>
           </div>
           <hr />
         </div>
@@ -67,7 +65,7 @@ export const PerfilPage = () => {
         <hr />
         <div className="df-col">
           <p className="text-mr font-color">CONTRASEÑA</p>
-          <p>{ profileUser?.password }</p>
+          <p>{/* { profileUser.password } */}********</p>
         </div>
       </div>
     </div>

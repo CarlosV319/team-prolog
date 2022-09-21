@@ -3,13 +3,15 @@ import { useForm, useAuthStore } from "../../hooks";
 import { useGoogleLogin } from "@react-oauth/google";
 import axios from "axios";
 import Swal from "sweetalert2";
+import { Link as RouterLink } from 'react-router-dom';
+import { Link } from '@mui/material';
 
 const registerFormFields = {
   registerEmail: "",
   registerPassword: "",
 };
 
-export const Register = () => {
+export const RegisterPage = () => {
   console.log();
   const { errorMessage, startRegister } = useAuthStore();
   const {
@@ -56,6 +58,10 @@ export const Register = () => {
     }
   }, [errorMessage]);
 
+
+
+
+  
   return (
     <div className="container">
       <div className="container-register">
@@ -104,9 +110,15 @@ export const Register = () => {
           </button>
         </div>
 
-        <p className="text-2">
-          ¿Ya tiene una cuenta? <span>Ingresa</span>
+        <p className="text-2">¿Ya tiene una cuenta? 
+        <Link
+              component={RouterLink}
+              color='inherit'
+              to='/auth/login'>
+          <span>Ingresar</span>
+        </Link>
         </p>
+
       </div>
     </div>
   );

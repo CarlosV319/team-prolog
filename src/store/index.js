@@ -1,3 +1,5 @@
-export * from './auth/authSlice'
-export * from './session/pageSlice'
+export * from './auth/authSlice';
+export * from './profile/profileSlice';
+
+
 export * from './store';
