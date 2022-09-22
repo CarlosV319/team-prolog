@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { LoginPage, RegisterPage } from '../auth';
-import { PerfilPage } from '../auth/pages/PerfilPage';
+import { ProfilePage } from '../auth/pages/ProfilePage';
 import { AuthRoutes } from '../auth/routes/AuthRoutes';
 import { useAuthStore } from '../hooks';
 import { EditProfilePage } from '../profile/pages/EditProfilePage';
@@ -12,11 +12,11 @@ export const AppRouter = () => {
     const { status, checkAuthToken } = useAuthStore();
 
     useEffect(() => {
-        
+
         checkAuthToken();
     }, [])
 
-    console.log( status )
+    console.log(status)
 
     if (status === 'checking') {
         return (
@@ -27,10 +27,10 @@ export const AppRouter = () => {
 
     return (
 
-    <Routes>
-        {/* {
+        <Routes>
+            {/* {
 
-        ( status === 'not-authenticated' )  
+        ( status === 'not-authenticated' )
             ?
                 (
                     <>
@@ -38,8 +38,8 @@ export const AppRouter = () => {
                         <Route path='/*' element={ <Navigate to='auth/login'/> }/>
                     </>
                 )
-            :   
-                ( 
+            :
+                (
                     <>
                         <Route path='/' element={ <PerfilPage/> }/>
                         <Route exact path="/profile/:id" component={ EditProfilePage }></Route>
@@ -48,16 +48,16 @@ export const AppRouter = () => {
                 )
 
         } */}
-            
-        {
-          ( status === 'authenticated')
 
-          ? <Route path='/*' element={<PerfilPage />}/>
+            {
+                (status === 'authenticated')
 
-          : <Route path='/auth/*' element={<AuthRoutes />}/>
-        }
+                    ? <Route path='/*' element={<ProfilePage />} />
 
-        <Route path='/*' element={ <Navigate to='auth/login'/>}/>
+                    : <Route path='/auth/*' element={<AuthRoutes />} />
+            }
+
+            <Route path='/*' element={<Navigate to='auth/login' />} />
 
             {/* {
                 (status === 'not-authenticated')
@@ -76,6 +76,6 @@ export const AppRouter = () => {
             } */}
 
 
-    </Routes>
+        </Routes>
     )
 }

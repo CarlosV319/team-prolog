@@ -4,12 +4,12 @@ import { useProfileStore } from '../../hooks/useProfileStore';
 import { Link } from 'react-router-dom';
 
 
-export const PerfilPage = () => {
+export const ProfilePage = () => {
 
   const { setUserProfile } = useProfileStore();
-  const { profileUser } = useSelector( state => state.profile );
+  const { profileUser } = useSelector(state => state.profile);
 
-  useEffect( () => {
+  useEffect(() => {
 
     setUserProfile();
   }, []);
@@ -17,7 +17,7 @@ export const PerfilPage = () => {
   return (
     <div className="container">
       <div>
-        <button>
+        <button className='container-icon'>
           <i className="fa-solid fa-right-from-bracket"></i>Salir
         </button>
       </div>
@@ -32,42 +32,42 @@ export const PerfilPage = () => {
                 La información no puede ser visible para otras personas
               </p>
             </div>
-            <Link to={'/profile/' + profileUser?.uid }>
+            <Link to={'/profile/' + profileUser?.uid}>
               <button className="btn-edit">Editar</button>
             </Link>
           </div>
           <hr />
         </div>
         <div className="df-col">
-          <p className="text-mr font-color">{ profileUser?.avatar }</p>
+          <p className="text-mr font-color">{profileUser?.avatar}</p>
           <i className="fa-solid fa-user-secret size"></i>
         </div>
         <hr />
         <div className="df-col">
           <p className="text-mr font-color">NOMBRE</p>
-          <p>{ profileUser?.name }</p>
+          <p>{profileUser?.name}</p>
         </div>
         <hr />
         <div className="df-col">
           <p className="text-mr font-color">BIOGRAFÍA</p>
           <p className="text-w">
-          { profileUser?.bio }
+            {profileUser?.bio}
           </p>
         </div>
         <hr />
         <div className="df-col">
           <p className="text-mr font-color">TELÉFONO</p>
-          <p>{ profileUser?.phoneNumber }</p>
+          <p>{profileUser?.phoneNumber}</p>
         </div>{" "}
         <hr />
         <div className="df-col">
           <p className="text-mr font-color">EMAIL</p>
-          <p>{ profileUser?.email }</p>
+          <p>{profileUser?.email}</p>
         </div>{" "}
         <hr />
         <div className="df-col">
           <p className="text-mr font-color">CONTRASEÑA</p>
-          <p>{ profileUser?.password }</p>
+          <p>{profileUser?.password}</p>
         </div>
       </div>
     </div>

@@ -23,7 +23,7 @@
 	align-items: center;
 	margin-top: 10vh;
 }
-.container-login {
+.container-perfil {
 	padding: 38px;
 	width: 380px;
 	border: 1px solid var(--color-border);
@@ -84,7 +84,7 @@ span {
 }
 
 /* ICON STYLE */
-.container-icon {
+.continer-icon {
 	display: flex;
 }
 
