@@ -15,43 +15,32 @@ export const useProfileStore = () => {
   const { user } = useSelector( state => state.auth );
   const { profileUser, isLoadingProfile } = useSelector( state => state.profile );
 
-  console.log( user.uid )
-
   const setUserProfile = async() => {
   
     const { data } = await pageApi.get(`/profile/${ user.uid }`);
-
-    console.log( {data} )
 
     dispatch( onSetUserProfile( data ) );
   };
 
   const updateUserProfile = async ( profileUser ) => {
 
-    console.log( JSON.stringify(profileUser) + " 1")
-    
     try {
     
       if( profileUser?.uid ) {
 
         const resp = await pageApi.put(`/profile/${ user.uid }`, profileUser );
 
-        // console.log( resp )
-
         dispatch( onUpdateUserProfile( { ...profileUser, user} ) );
   
         return;
       }
 
-      
-  
       dispatch( onSetUserProfile( { ...userProfile } ) );
 
     } catch (error) {
       
       console.log(error)
       Swal.fire('Error al guardar', 'error')
-
     }
 
   }
