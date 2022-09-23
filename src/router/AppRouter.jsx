@@ -18,11 +18,11 @@ const lastPath = pathname;
   localStorage.setItem('lastPath', lastPath);
 
     useEffect(() => {
-        
+
         checkAuthToken();
     }, [])
 
-    console.log( status )
+    console.log(status)
 
     if (status === 'checking') {
         return (
