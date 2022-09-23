@@ -1,48 +1,55 @@
-import { useEffect, useState } from 'react';
+import { useEffect /* , useState */ } from 'react';
 import { useSelector } from 'react-redux';
+import { useForm } from '../../hooks';
 
 import { useProfileStore } from '../../hooks/useProfileStore';
 
-
-export const EditProfilePage = () => {
-
-
-  const { profileUser } = useSelector( state => state.profile );
-
-  // Almacenar vista en el localStorage
-  const [ lastView, setLastView ] = useState( localStorage.getItem( 'lastView' ) || 'week' );
-
-  const { updateUserProfile } = useProfileStore()
-  
-  const [formValues, setFormValues] = useState({
+const formFields = {
     name: '',
     avatar: '',
     bio: '',
     email: '',
     password: '',
     phoneNumber: '',
-  });
+}
 
+
+export const EditProfilePage = () => {
+
+  const { name,
+          avatar,
+          bio,
+          email,
+          password,
+          phoneNumber,
+          formState,
+          setFormState,
+          onInputChange } = useForm( formFields );
+
+  const { profileUser } = useSelector( state => state.profile );
+
+  const { setUserProfile } = useProfileStore();
+
+  const { updateUserProfile } = useProfileStore()
+  
   useEffect(() => {
-    if( profileUser !== null) {
-        setFormValues({ ...profileUser });
-    }
 
+    if( profileUser !== null) {
+        setFormState({ ...profileUser });
+    }
+  
   }, [ profileUser ]);
 
- 
-  const onInputChanged = ( { target } ) => {
-    setFormValues({
-        ...formValues,
-        [ target.name ]: target.value
-    });
-  };
+  useEffect(() => {
+
+    setUserProfile();
+  }, []);
 
   const onSaveProfileChanges = async( event ) => {
 
     event.preventDefault();
 
-    await updateUserProfile( formValues );
+    await updateUserProfile( formState );
 
   }
 
@@ -72,8 +79,8 @@ export const EditProfilePage = () => {
                   id="avatar"
                   placeholder="Cargar nueva imagen..." 
                   name="avatar"
-                  value={ formValues.avatar }
-                  onChange={ onInputChanged }
+                  value={ avatar }
+                  onChange={ onInputChange }
             />
             </div>
             <div >
@@ -84,8 +91,8 @@ export const EditProfilePage = () => {
                 id="nombre"
                 placeholder="Ingresa tu nombre..." 
                 name="name"
-                value={ formValues.name }
-                onChange={ onInputChanged }
+                value={ name }
+                onChange={ onInputChange }
                 />
             </div>
             <div >
@@ -96,8 +103,8 @@ export const EditProfilePage = () => {
                 id="biografía"
                 placeholder="Ingresa tu Biografía..." 
                 name="bio" 
-                value={ formValues.bio }
-                onChange={ onInputChanged }
+                value={ bio }
+                onChange={ onInputChange }
                 />
             </div>
             <div >
@@ -108,8 +115,8 @@ export const EditProfilePage = () => {
                 id="teléfono"
                 placeholder="Ingresa tu teléfono..." 
                 name="phoneNumber" 
-                value={ formValues.phoneNumber }
-                onChange={ onInputChanged }/>
+                value={ phoneNumber }
+                onChange={ onInputChange }/>
             </div>
             <div >
                 <label htmlFor="email">email</label>
@@ -119,8 +126,8 @@ export const EditProfilePage = () => {
                 id="email"
                 placeholder="Ingresa tu email..." 
                 name="email" 
-                value={ formValues.email }
-                onChange={ onInputChanged }
+                value={ email }
+                onChange={ onInputChange }
                 />
             </div>
             <div >
@@ -131,8 +138,8 @@ export const EditProfilePage = () => {
                 id="contraseña"
                 placeholder="Ingresa tu contraseña..." 
                 name="password" 
-                value={ formValues.password }
-                onChange={ onInputChanged }
+                value={ password }
+                onChange={ onInputChange }
                 />
             </div>
   

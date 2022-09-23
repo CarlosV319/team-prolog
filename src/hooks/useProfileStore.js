@@ -17,7 +17,7 @@ export const useProfileStore = () => {
 
   const setUserProfile = async() => {
   
-    const { data } = await pageApi.get(`/profile/${ user.uid }`);
+    const { data } = await pageApi.get('/profile/', user.uid );
 
     dispatch( onSetUserProfile( data ) );
   };

@@ -1,15 +1,21 @@
 import { useEffect } from 'react';
-import { Navigate, Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes, useLocation } from 'react-router-dom';
 
 import { AuthRoutes } from '../auth/routes/AuthRoutes';
-import { useAuthStore } from '../hooks';
-import { EditProfilePage } from '../profile/pages/EditProfilePage';
 import { ProfileRoutes } from '../profile/routes/ProfileRoutes';
+import { useAuthStore } from '../hooks';
+
 
 
 export const AppRouter = () => {
 
-    const { status, checkAuthToken } = useAuthStore();
+const { status, checkAuthToken } = useAuthStore();
+
+const { pathname }  = useLocation();
+
+const lastPath = pathname;
+
+  localStorage.setItem('lastPath', lastPath);
 
     useEffect(() => {
         
@@ -45,5 +51,6 @@ export const AppRouter = () => {
         
 
     </Routes>
+
     )
 }

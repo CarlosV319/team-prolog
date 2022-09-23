@@ -1,9 +1,13 @@
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 
 import { EditProfilePage } from '../pages/EditProfilePage';
 import { ProfilePage } from '../pages/ProfilePage';
 
+
+
 export const ProfileRoutes = () => {
+
 
   return (
     <Routes>
