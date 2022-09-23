@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import { useProfileStore } from '../../hooks/useProfileStore';
@@ -6,68 +6,147 @@ import { useProfileStore } from '../../hooks/useProfileStore';
 
 export const EditProfilePage = () => {
 
-//   const { setUserProfile } = useProfileStore();
+
   const { profileUser } = useSelector( state => state.profile );
 
-//   useEffect( () => {
+  // Almacenar vista en el localStorage
+  const [ lastView, setLastView ] = useState( localStorage.getItem( 'lastView' ) || 'week' );
 
-//     setUserProfile();
-//   }, []);
+  const { updateUserProfile } = useProfileStore()
+  
+  const [formValues, setFormValues] = useState({
+    name: '',
+    avatar: '',
+    bio: '',
+    email: '',
+    password: '',
+    phoneNumber: '',
+  });
+
+  useEffect(() => {
+    if( profileUser !== null) {
+        setFormValues({ ...profileUser });
+    }
+
+  }, [ profileUser ]);
+
+ 
+  const onInputChanged = ( { target } ) => {
+    setFormValues({
+        ...formValues,
+        [ target.name ]: target.value
+    });
+  };
+
+  const onSaveProfileChanges = async( event ) => {
+
+    event.preventDefault();
+
+    await updateUserProfile( formValues );
+
+  }
+
 
   return (
+    <>
+    <h1>Edit Profile</h1>
     <div className="container">
-      <div>
-        <button>
-          <i className="fa-solid fa-right-from-bracket"></i>Salir
-        </button>
-      </div>
-      <h1>Información personal</h1>
-      <p className="font-color">Información básica, como tu nombre y foto</p>
-      <div className="continer-perfil">
-        <div>
-          <div className="df-col">
-            <div>
-              <p className="font-l">Perfil</p>
-              <p className="font-xs font-color">
-                La información no puede ser visible para otras personas
-              </p>
-            </div>
-            <button className="btn-edit">Editar</button>
-          </div>
-          <hr />
-        </div>
-        <div className="df-col">
-          <p className="text-mr font-color">{ profileUser?.avatar }</p>
-          <i className="fa-solid fa-user-secret size"></i>
-        </div>
-        <hr />
-        <div className="df-col">
-          <p className="text-mr font-color">NOMBRE</p>
-          <p>{ profileUser?.name }</p>
-        </div>
-        <hr />
-        <div className="df-col">
-          <p className="text-mr font-color">BIOGRAFÍA</p>
-          <p className="text-w">
-          { profileUser?.bio }
+        <div className="container-perfil">
+            <div className="width-p">
+
+
+          <h4>Cambiar información</h4>
+          <p className="sub-text">
+            Los cambios se reflejarán en todos los servicios
           </p>
-        </div>
-        <hr />
-        <div className="df-col">
-          <p className="text-mr font-color">TELÉFONO</p>
-          <p>{ profileUser?.phoneNumber }</p>
-        </div>{" "}
-        <hr />
-        <div className="df-col">
-          <p className="text-mr font-color">EMAIL</p>
-          <p>{ profileUser?.email }</p>
-        </div>{" "}
-        <hr />
-        <div className="df-col">
-          <p className="text-mr font-color">CONTRASEÑA</p>
-          <p>{/* { profileUser.password } */}********</p>
+          
+          <form
+            onSubmit={ onSaveProfileChanges }
+            >
+            <div className="df-col">
+            <i className="fa-solid fa-user-secret size"></i>
+            <p className="text-mr font-color">CAMBIAR FOTO</p>
+            <input 
+                  className="group-form" 
+                  type="text" 
+                  id="avatar"
+                  placeholder="Cargar nueva imagen..." 
+                  name="avatar"
+                  value={ formValues.avatar }
+                  onChange={ onInputChanged }
+            />
+            </div>
+            <div >
+                <label htmlFor="nombre">Nombre</label>
+              <input 
+                className="group-form" 
+                type="text" 
+                id="nombre"
+                placeholder="Ingresa tu nombre..." 
+                name="name"
+                value={ formValues.name }
+                onChange={ onInputChanged }
+                />
+            </div>
+            <div >
+                <label htmlFor="biografía">biografía</label>
+              <input 
+                className="group-form" 
+                type="textarea" 
+                id="biografía"
+                placeholder="Ingresa tu Biografía..." 
+                name="bio" 
+                value={ formValues.bio }
+                onChange={ onInputChanged }
+                />
+            </div>
+            <div >
+                <label htmlFor="teléfono">Teléfono</label>
+              <input 
+                className="group-form" 
+                type="tel" 
+                id="teléfono"
+                placeholder="Ingresa tu teléfono..." 
+                name="phoneNumber" 
+                value={ formValues.phoneNumber }
+                onChange={ onInputChanged }/>
+            </div>
+            <div >
+                <label htmlFor="email">email</label>
+              <input 
+                className="group-form" 
+                type="email" 
+                id="email"
+                placeholder="Ingresa tu email..." 
+                name="email" 
+                value={ formValues.email }
+                onChange={ onInputChanged }
+                />
+            </div>
+            <div >
+                <label htmlFor="contraseña">contraseña</label>
+              <input 
+                className="group-form" 
+                type="password" 
+                id="contraseña"
+                placeholder="Ingresa tu contraseña..." 
+                name="password" 
+                value={ formValues.password }
+                onChange={ onInputChanged }
+                />
+            </div>
+  
+            <button 
+              className="button-guardar" 
+              type="submit"
+              >
+              Guardar
+            </button>
+          </form>
+            </div>
+          
         </div>
       </div>
-    </div>
+    </>
   );
 };
