@@ -1,5 +1,5 @@
 
-export const FormPerfil = () => {
+export const FormProfile = () => {
     return (
       <div className="container">
         <div className="container-perfil">

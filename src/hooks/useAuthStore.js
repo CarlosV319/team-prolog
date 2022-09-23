@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { pageApi } from '../api/pageApi';
-import { clearErrorMessage, onChecking, onLogin, onLogout } from '../store';
+import { clearErrorMessage, onChecking, onLogin, onLogout, onRegister } from '../store';
 
 export const useAuthStore = () => {
 
@@ -15,7 +15,7 @@ export const useAuthStore = () => {
             console.log( data )
 
             localStorage.setItem('token', data.token);
-            localStorage.setItem('token-init-date', new Date().getTime());
+          
             dispatch(onLogin({ name: data.name, uid: data.uid }));
 
         } catch (error) {
@@ -34,7 +34,9 @@ export const useAuthStore = () => {
             const { data } = await pageApi.post('/auth/register', { ...User});
             localStorage.setItem('token', data.token);
             localStorage.setItem('token-init-date', new Date().getTime());
-            dispatch(onLogin({ name: data.name, uid: data.uid }));
+            dispatch(onRegister({ name: data.name, uid: data.uid }));
+
+            console.log( data )
            
 
         } catch (error) {

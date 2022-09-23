@@ -1,6 +1,8 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux';
 import { Link as RouterLink } from 'react-router-dom';
 import { Link } from '@mui/material';
+import Swal from "sweetalert2";
 
 
 import { useForm, useAuthStore } from '../../hooks';
@@ -13,24 +15,28 @@ const loginFormFields = {
 }
 
 export const LoginPage = () => {
+
+    
+    
     const { errorMessage, startLogin } = useAuthStore();
     const { loginEmail, loginPassword, onInputChange: onLoginInputChange } = useForm(loginFormFields);
-
-    const loginSubmit = (event) => {
+    
+    const loginSubmit = (event) => { 
         event.preventDefault();
         startLogin({
             email: loginEmail,
             password: loginPassword,
         });
-
+        
     };
     useEffect(() => {
         if (errorMessage !== undefined) {
             Swal.fire('Error en la autenticación', errorMessage, 'error');
         }
     }, [ errorMessage ])
+    
 
-
+    
     return (
         <div className="container">
             <div className="container-login">
