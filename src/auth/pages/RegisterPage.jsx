@@ -1,8 +1,9 @@
-import { useEffect } from "react";
-import { useForm, useAuthStore } from "../../hooks";
-import { useGoogleLogin } from "@react-oauth/google";
-import axios from "axios";
-import Swal from "sweetalert2";
+import { useEffect } from 'react';
+import { useForm, useAuthStore } from '../../hooks';
+import { useGoogleLogin } from '@react-oauth/google';
+import axios from 'axios';
+
+import Swal from 'sweetalert2';
 import { Link as RouterLink } from 'react-router-dom';
 import { Link } from '@mui/material';
 
@@ -12,7 +13,7 @@ const registerFormFields = {
 };
 
 export const RegisterPage = () => {
-  console.log();
+
   const { errorMessage, startRegister } = useAuthStore();
   const {
     registerEmail,
@@ -39,6 +40,7 @@ export const RegisterPage = () => {
           avatar: res.data.picture,
           google: true,
         });
+
       } catch (error) {
         console.log(error);
       }
@@ -51,6 +53,7 @@ export const RegisterPage = () => {
       email: registerEmail,
       password: registerPassword,
     });
+
   };
   useEffect(() => {
     if (errorMessage !== undefined) {

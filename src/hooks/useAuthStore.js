@@ -1,11 +1,16 @@
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+
 import { pageApi } from '../api/pageApi';
 import { clearErrorMessage, onChecking, onLogin, onLogout } from '../store';
 
 export const useAuthStore = () => {
 
     const { status, user, errorMessage } = useSelector(state => state.auth);
+
     const dispatch = useDispatch();
+
+    const navigateTo = useNavigate();
 
     const startLogin = async ({ email, password }) => {
         dispatch(onChecking());
@@ -35,7 +40,7 @@ export const useAuthStore = () => {
             localStorage.setItem('token', data.token);
             localStorage.setItem('token-init-date', new Date().getTime());
             dispatch(onLogin({ name: data.name, uid: data.uid }));
-           
+            navigateTo( `/profile/${ data.uid }` );
 
         } catch (error) {
             dispatch(onLogout(error.response.data?.msg || 'add valid email or password'));

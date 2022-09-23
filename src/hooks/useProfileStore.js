@@ -1,16 +1,17 @@
 import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 import Swal from 'sweetalert2';
 import { pageApi } from '../api/pageApi';
 
 import { onSetUserProfile,
-         onUpdateUserProfile,
-         onLoadProfile,
-         onLogoutProfile } from '../store';
+         onUpdateUserProfile } from '../store';
 
 export const useProfileStore = () => {
 
   const dispatch = useDispatch();
+
+  const navigateTo = useNavigate();
 
   const { user } = useSelector( state => state.auth );
   const { profileUser, isLoadingProfile } = useSelector( state => state.profile );
@@ -31,6 +32,8 @@ export const useProfileStore = () => {
         const resp = await pageApi.put(`/profile/${ user.uid }`, profileUser );
 
         dispatch( onUpdateUserProfile( { ...profileUser, user} ) );
+
+        navigateTo( `/profile` );
   
         return;
       }
