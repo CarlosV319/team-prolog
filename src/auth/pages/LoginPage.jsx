@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux';
-import { Link as RouterLink } from 'react-router-dom';
-import { Link } from '@mui/material';
-import Swal from "sweetalert2";
+import React, { useEffect } from 'react'
+import { Link, useNavigate } from 'react-router-dom';
 
+
+import Swal from 'sweetalert2';
 
 import { useForm, useAuthStore } from '../../hooks';
 import './LoginPage.css';
@@ -16,33 +15,31 @@ const loginFormFields = {
 
 export const LoginPage = () => {
 
-    
-    
     const { errorMessage, startLogin } = useAuthStore();
-    const { loginEmail, loginPassword, onInputChange: onLoginInputChange } = useForm(loginFormFields);
-    
-    const loginSubmit = (event) => { 
+    const { loginEmail, loginPassword, onInputChange: onLoginInputChange } = useForm( loginFormFields );
+
+    const loginSubmit = (event) => {
+
         event.preventDefault();
+
         startLogin({
             email: loginEmail,
             password: loginPassword,
         });
-        
     };
     useEffect(() => {
         if (errorMessage !== undefined) {
             Swal.fire('Error en la autenticación', errorMessage, 'error');
         }
     }, [ errorMessage ])
-    
 
-    
+
     return (
         <div className="container">
             <div className="container-login">
                 <div className='group-form'>
                     <p>Ingreso</p>
-                    <form onSubmit={loginSubmit}>
+                    <form /* onSubmit={loginSubmit} */>
                         <div className="group-form">
                             <div className="icon-form">
                                 <i className="fa-solid fa-envelope"></i>
@@ -68,10 +65,14 @@ export const LoginPage = () => {
                             />
                         </div>
                         <div className="d-grid gap-2">
-                            <button className="button-login"
-                                type="submit">
-                                Ingresar
-                            </button>
+                            <button 
+                                className="button-login"
+                                /* type="submit" */
+                                onClick={ loginSubmit }
+                                    >
+                                    <Link to={'/profile'}>Ingresar</Link>
+                                </button>
+                       
                         </div>
                     </form>
                     <p className="text-2">o continuar con estos perfiles sociales</p>
@@ -86,8 +87,6 @@ export const LoginPage = () => {
                 </div>
                 <p className="text-2">¿No tienes una cuenta? 
                     <Link 
-                        component={ RouterLink }
-                        color='inherit' 
                         to='/auth/register'>
                             <span>Registrate</span>
                     </Link>

@@ -1,13 +1,19 @@
-import { Routes, Route, Navigate } from 'react-router-dom';
-import { PerfilPage } from '../../auth/pages/PerfilPage';
+import { useSelector } from 'react-redux';
+import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
+
+import { EditProfilePage } from '../pages/EditProfilePage';
+import { ProfilePage } from '../pages/ProfilePage';
+
+
 
 export const ProfileRoutes = () => {
 
+
   return (
     <Routes>
-        <Route path='/' element={ <PerfilPage/> }/>
+        <Route path='/*' element={ <ProfilePage/> }/>
        
-        <Route path='/*' element={ <Navigate to='/'/> }/>
+        <Route exact path="/profile/:id" element={ <EditProfilePage/> }></Route>
     </Routes>
   )
 }

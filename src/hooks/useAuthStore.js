@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { pageApi } from '../api/pageApi';
-import { clearErrorMessage, onChecking, onLogin, onLogout, onRegister } from '../store';
+import { clearErrorMessage, onChecking, onLogin, onLogout } from '../store';
 
 export const useAuthStore = () => {
 
@@ -15,7 +15,7 @@ export const useAuthStore = () => {
             console.log( data )
 
             localStorage.setItem('token', data.token);
-          
+            localStorage.setItem('token-init-date', new Date().getTime());
             dispatch(onLogin({ name: data.name, uid: data.uid }));
 
         } catch (error) {
@@ -34,9 +34,7 @@ export const useAuthStore = () => {
             const { data } = await pageApi.post('/auth/register', { ...User});
             localStorage.setItem('token', data.token);
             localStorage.setItem('token-init-date', new Date().getTime());
-            dispatch(onRegister({ name: data.name, uid: data.uid }));
-
-            console.log( data )
+            dispatch(onLogin({ name: data.name, uid: data.uid }));
            
 
         } catch (error) {
@@ -50,14 +48,17 @@ export const useAuthStore = () => {
 
     const checkAuthToken = async () => {
         const token = localStorage.getItem('token');
-        if (!token) return dispatch(onLogout());
+
+        if (!token) return dispatch( onLogout() );
 
         try {
-            const { data } = await page.get('auth/renew');
+            const { data } = await pageApi.get('auth/renew');
             localStorage.setItem('token', data.token);
             localStorage.setItem('token-init-date', new Date().getTime());
             dispatch(onLogin({ name: data.name, uid: data.uid }));
         } catch (error) {
+
+            console.log( error );
             localStorage.clear();
             dispatch(onLogout());
         }

@@ -14,9 +14,13 @@ export const profileSlice = createSlice({
         },
         
         onUpdateUserProfile: ( state, { payload } ) => {
-        // Modificar evento y guardar cambios
 
             state.profileUser = payload;
+            
+            console.log( {payload} )
+
+            // return payload;
+
         },
 
         onLoadProfile: ( state ) => {

@@ -1,38 +1,57 @@
-import { useEffect } from "react";
-import { Navigate, Route, Routes } from "react-router-dom";
-import { LoginPage, RegisterPage } from "../auth";
-import { PerfilPage } from "../auth/pages/PerfilPage";
-import { AuthRoutes } from "../auth/routes/AuthRoutes";
-import { FormProfile } from "../component/FormProfile";
-import { useAuthStore } from "../hooks";
-import { EditProfilePage } from "../profile/pages/EditProfilePage";
+
+import { useEffect } from 'react';
+import { Navigate, Route, Routes, useLocation } from 'react-router-dom';
+
+import { AuthRoutes } from '../auth/routes/AuthRoutes';
+import { ProfileRoutes } from '../profile/routes/ProfileRoutes';
+import { useAuthStore } from '../hooks';
+
+
 
 export const AppRouter = () => {
-  const { status, checkAuthToken } = useAuthStore();
 
-  useEffect(() => {
-    checkAuthToken();
-  }, []);
+const { status, checkAuthToken } = useAuthStore();
 
-  console.log(status);
+const { pathname }  = useLocation();
 
-  if (status === "checking") {
-    return <h3>Cargando...</h3>;
-  }
+const lastPath = pathname;
 
-  return (
+  localStorage.setItem('lastPath', lastPath);
+
+    useEffect(() => {
+        
+        checkAuthToken();
+    }, [])
+
+    console.log( status )
+
+    if (status === 'checking') {
+        return (
+            <h3>Cargando...</h3>
+        )
+    }
+
+
+    return (
+
     <Routes>
-    
+            
+        {
+          ( status === 'authenticated')
 
-      {status === "Login-authenticated" ? (
-        <Route path="/*" element={<PerfilPage />} />
-      ) : status === "Register-authenticated" ? (
-        <Route path="/*" element={<FormProfile />} />
-      ) : (
-        <Route path="/auth/*" element={<AuthRoutes />} />
-      )}
+          ? 
+            
+            
+          <Route path='/*' element={<ProfileRoutes />}/>
+                       
+        
+          : <Route path='/auth/*' element={<AuthRoutes />}/>
+        }
 
-    
+        <Route path='/*' element={ <Navigate to='auth/login'/>}/>
+        
+
     </Routes>
-  );
-};
+
+    )
+}

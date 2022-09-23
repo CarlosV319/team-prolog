@@ -14,12 +14,7 @@ export const authSlice = createSlice({
             state.errorMessage = undefined;
         },
         onLogin: (state, { payload }) => {
-            state.status = 'Login-authenticated';
-            state.user = payload;
-            state.errorMessage = undefined;
-        },
-        onRegister: (state, { payload }) => {
-            state.status = 'Register-authenticated';
+            state.status = 'authenticated';
             state.user = payload;
             state.errorMessage = undefined;
         },
@@ -30,8 +25,8 @@ export const authSlice = createSlice({
         },
         clearErrorMessage: (state) => {
             state.errorMessage = undefined;
-        }
+        },
     }
 });
 
-export const { onChecking, onLogin, onLogout, clearErrorMessage, onRegister } = authSlice.actions;
+export const { onChecking, onLogin, onLogout, clearErrorMessage } = authSlice.actions;
