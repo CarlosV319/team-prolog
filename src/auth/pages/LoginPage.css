@@ -1,4 +1,4 @@
-:root {
+/* :root {
 	--color-primario: #ffffff;
 	--color-segundario: #2f80ed;
 	--color-border: #bdbdbd;
@@ -83,7 +83,7 @@ span {
 	color: var(--color-icon);
 }
 
-/* ICON STYLE */
+
 .continer-icon {
 	display: flex;
 }
@@ -98,4 +98,4 @@ span {
 .icon-form {
 	margin-left: 10px;
 	color: var(--color-icon);
-}
+}  */
