@@ -4,7 +4,7 @@ import { Link } from '@mui/material';
 import axios from "axios";
 import Swal from "sweetalert2";
 import { useGoogleLogin } from "@react-oauth/google";
-import { LoginGithub } from "react-login-github";
+import LoginGithub from "react-login-github";
 import { useForm, useAuthStore } from "../../hooks";
 import './LoginPage.css';
 

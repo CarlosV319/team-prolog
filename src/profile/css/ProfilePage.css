@@ -1,0 +1,54 @@
+/*Estilos Perfil*/
+.container-profile {
+
+}
+.container-perfile-1 {
+
+}
+
+.button-login {
+
+}
+form {
+
+}
+form input {
+
+}
+
+form .login-form {
+
+h4 {
+
+}
+
+.sub-text {
+
+}
+span {
+
+}
+
+.text-2 {
+}
+
+/* ICON STYLE */
+.continer-icon {
+	display: flex;
+}
+
+.icon-style {
+	border: 1px solid var(--color-border);
+	color: var(--color-icon);
+	padding: 10px 14px;
+	border-radius: 30px;
+	margin: 1rem;
+}
+.icon-form {
+	margin-left: 10px;
+	color: var(--color-icon);
+}
+
+.button-logout{
+	color:#2D9CDB ;
+}
