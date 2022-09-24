@@ -1,25 +1,25 @@
-import { useEffect /* , useState */ } from "react";
-import { useSelector } from "react-redux";
-import { useForm } from "../../hooks";
-import { Link } from "react-router-dom";
+import { useEffect /* , useState */ } from 'react';
+import { useSelector } from 'react-redux';
+import { useForm } from '../../hooks';
+import { Link } from 'react-router-dom';
 
 import { useProfileStore } from "../../hooks/useProfileStore";
 import { useAuthStore } from "../../hooks";
 
 const formFields = {
-  name: "",
-  avatar: "",
-  bio: "",
-  email: "",
-  password: "",
-  phoneNumber: "",
-};
+    name: '',
+    avatar: '',
+    bio: '',
+    email: '',
+    password: '',
+    phoneNumber: '',
+}
+
 
 export const EditProfilePage = () => {
   const { startLogout } = useAuthStore();
 
-  const {
-    name,
+  const { name,
     avatar,
     bio,
     email,
@@ -27,30 +27,34 @@ export const EditProfilePage = () => {
     phoneNumber,
     formState,
     setFormState,
-    onInputChange,
-  } = useForm(formFields);
+    onInputChange } = useForm( formFields );
 
-  const { profileUser } = useSelector((state) => state.profile);
+const { profileUser } = useSelector( state => state.profile );
 
-  const { setUserProfile } = useProfileStore();
+const { setUserProfile } = useProfileStore();
 
-  const { updateUserProfile } = useProfileStore();
+const { updateUserProfile } = useProfileStore()
 
-  useEffect(() => {
-    if (profileUser !== null) {
-      setFormState({ ...profileUser });
-    }
-  }, [profileUser]);
+useEffect(() => {
 
-  useEffect(() => {
-    setUserProfile();
-  }, []);
+if( profileUser !== null) {
+  setFormState({ ...profileUser });
+}
 
-  const onSaveProfileChanges = async (event) => {
-    event.preventDefault();
+}, [ profileUser ]);
 
-    await updateUserProfile(formState);
-  };
+useEffect(() => {
+
+setUserProfile();
+}, []);
+
+const onSaveProfileChanges = async( event ) => {
+
+event.preventDefault();
+
+await updateUserProfile( formState );
+
+}
 
   return (
     <>
@@ -132,7 +136,7 @@ export const EditProfilePage = () => {
                   placeholder="Ingresa tu email..."
                   name="email"
                   value={email}
-                  readonly
+                  readOnly
                   // onChange={onInputChange}
                 />
               </div>
@@ -154,8 +158,10 @@ export const EditProfilePage = () => {
               </button>
             </form>
           </div>
-        </div>
-      </div>
-    </>
-  );
-};
+          </div>
+          </div>
+
+     </>
+
+ )
+}

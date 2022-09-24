@@ -9,7 +9,7 @@ export const ProfilePage = () => {
 
   const { setUserProfile } = useProfileStore();
   // const { user } = useSelector( state => state.auth );
-  const { user, startLogout } = useAuthStore();
+  const { user } = useAuthStore();
   const { profileUser } = useSelector( state => state.profile );
 
   useEffect( () => {
@@ -20,7 +20,7 @@ export const ProfilePage = () => {
   return (
     <div className="container">
       <div>
-        <button onClick={ startLogout }>
+        <button>
           <i className="fa-solid fa-right-from-bracket"></i>Salir
         </button>
       </div>
