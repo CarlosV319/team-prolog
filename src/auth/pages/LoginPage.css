@@ -68,7 +68,7 @@ span {
 	color: var(--color-icon);
 }
 
-/* ICON STYLE */
+
 .continer-icon {
 	display: flex;
 }
@@ -83,4 +83,4 @@ span {
 .icon-form {
 	margin-left: 10px;
 	color: var(--color-icon);
-}
+}  
