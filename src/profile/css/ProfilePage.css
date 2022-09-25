@@ -1,39 +1,105 @@
 /*Estilos Perfil*/
+.titulo-profile {
+	font-family: var(--fuente-primaria);
+	text-align: center;
+}
+.titulo-profile h1 {
+	font-size: 36px;
+	padding-top: 36px;
+}
+.titulo-profile p {
+	font-size: 16px;
+	padding-bottom: 25px;
+}
 .container-profile {
-
+	box-sizing: border-box;
+	border: 1px solid var(--color-border);
+	border-radius: 24px;
+	margin: 0px 100px 40px 100px;
+	height: 500px;
 }
-.container-perfile-1 {
-
+.container-profile-1 {
+	padding: 38px;
+	width: 380px;
+	border: 1px solid var(--color-border);
+	border-radius: 24px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
 
-.button-login {
-
+.btn-edit {
+	font-family: 'Noto Sans';
+	font-style: normal;
+	font-weight: 500;
+	font-size: 16px;
+	line-height: 22px;
 }
+
+.btn-logout {
+	height: 15px;
+	background-color: transparent;
+	border: transparent;
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	font-family: 'Noto Sans';
+	font-style: normal;
+	font-weight: 500;
+	font-size: 14x;
+	line-height: 18px;
+	letter-spacing: -0.035em;
+	color: var(--btn-logout);
+	cursor: pointer;
+}
+
+.width-p {
+	width: 70%;
+}
+
 form {
-
+	width: var(--width-input);
 }
 form input {
-
+	border: none;
+	margin-left: 5px;
 }
 
 form .login-form {
-
-h4 {
-
+	margin-top: 15px;
+	width: var(--width-input);
+	height: 35px;
+	border: 1px solid var(--color-border);
+	border-radius: 8px;
+	display: flex;
+	align-items: center;
+}
+h1 {
+	font-size: 1rem;
+	line-height: 25px;
+	letter-spacing: -0.035em;
+	margin-bottom: 1rem;
+	margin-top: 1.5rem;
+	color: var(--font-color-primario);
 }
 
 .sub-text {
-
-}
-span {
-
+	font-size: 0.9rem;
+	margin-bottom: 1rem;
 }
 
-.text-2 {
+.text-w {
+	font-family: 'Noto Sans';
+	font-style: normal;
+	font-weight: 500;
+	font-size: 18px;
+	line-height: 25px;
+	letter-spacing: -0.035em;
+	color: var(--color-primario);
 }
 
 /* ICON STYLE */
-.continer-icon {
+.container-icon {
 	display: flex;
 }
 
@@ -49,6 +115,36 @@ span {
 	color: var(--color-icon);
 }
 
-.button-logout{
-	color:#2D9CDB ;
+.avatar {
+	position: absolute;
+	width: 72px;
+	height: 72px;
+	left: 577px;
+	top: 354px;
+	border-radius: 8px;
+}
+
+.avatar img {
+	position: absolute;
+	width: 72.14px;
+	height: 72px;
+	left: 577.31px;
+	top: 354.27px;
+	border-radius: 8px;
+}
+
+.text-mr font-color {
+	position: absolute;
+	width: 54px;
+	height: 18px;
+	left: 346px;
+	top: 471px;
+
+	font-family: 'Noto Sans';
+	font-style: normal;
+	font-weight: 500;
+	font-size: 13px;
+	line-height: 18px;
+	letter-spacing: -0.035em;
+	color: #bdbdbd;
 }
