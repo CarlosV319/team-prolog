@@ -1,8 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-
 import { pageApi } from '../api/pageApi';
-import { clearErrorMessage, onChecking, onLogin, onLogout } from '../store';
+import { clearErrorMessage, onChecking, onLogin, onLogout, } from '../store';
 
 export const useAuthStore = () => {
 
@@ -17,7 +16,7 @@ export const useAuthStore = () => {
         try {
             const { data } = await pageApi.post('/auth', { email, password });
 
-            console.log( data )
+            console.log(data)
 
             localStorage.setItem('token', data.token);
             localStorage.setItem('token-init-date', new Date().getTime());
@@ -28,7 +27,7 @@ export const useAuthStore = () => {
             setTimeout(() => {
                 dispatch(clearErrorMessage());
             }, 10);
-            console.log( error )
+            console.log(error)
         }
 
     }
@@ -36,14 +35,14 @@ export const useAuthStore = () => {
     const startRegister = async (User) => {
         dispatch(onChecking());
         try {
-            const { data } = await pageApi.post('/auth/register', { ...User});
+            const { data } = await pageApi.post('/auth/register', { ...User });
             localStorage.setItem('token', data.token);
             localStorage.setItem('token-init-date', new Date().getTime());
             dispatch(onLogin({ name: data.name, uid: data.uid }));
-            navigateTo( `/profile/${ data.uid }` );
+            navigateTo(`/profile/${data.uid}`);
 
         } catch (error) {
-            dispatch(onLogout(error.response.data?.msg || 'add valid email or password'));
+            dispatch(startLogout(error.response.data?.msg || 'add a valid email or password'));
             setTimeout(() => {
                 dispatch(clearErrorMessage());
             }, 10);
@@ -51,10 +50,15 @@ export const useAuthStore = () => {
 
     }
 
+    const startLogout = () => {
+        localStorage.clear();
+        dispatch(onLogout());
+    }
+
     const checkAuthToken = async () => {
         const token = localStorage.getItem('token');
 
-        if (!token) return dispatch( onLogout() );
+        if (!token) return dispatch(onLogout());
 
         try {
             const { data } = await pageApi.get('auth/renew');
@@ -63,29 +67,19 @@ export const useAuthStore = () => {
             dispatch(onLogin({ name: data.name, uid: data.uid }));
         } catch (error) {
 
-            console.log( error );
+            console.log(error);
             localStorage.clear();
             dispatch(onLogout());
         }
     }
 
-    const startLogout = () => {
-        localStorage.clear();
-        dispatch(onLogout());
-    }
-
     return {
-        //Propiedades
         status,
         user,
         errorMessage,
-
-
-        // Metodos
         checkAuthToken,
         startLogin,
         startLogout,
         startRegister,
-
     }
 }

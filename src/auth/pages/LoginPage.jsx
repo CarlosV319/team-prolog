@@ -1,14 +1,12 @@
-import { useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import axios from 'axios';
-
-import { useGoogleLogin } from '@react-oauth/google';
-import Swal from 'sweetalert2';
-
-
-
-import { useForm, useAuthStore } from '../../hooks';
-// import './LoginPage.css';
+import React, { useEffect } from "react"
+import { Link as RouterLink } from "react-router-dom";
+import { Link } from '@mui/material';
+import axios from "axios";
+import Swal from "sweetalert2";
+import { useGoogleLogin } from "@react-oauth/google";
+// import LoginGithub from "react-login-github"; 
+import { useForm, useAuthStore } from "../../hooks";
+import './LoginPage.css';
 
 
 const loginFormFields = {
@@ -17,19 +15,9 @@ const loginFormFields = {
 }
 
 export const LoginPage = () => {
-
+    console.log()
     const { errorMessage, startLogin } = useAuthStore();
-    const { loginEmail, loginPassword, onInputChange: onLoginInputChange } = useForm( loginFormFields );
-
-    const loginSubmit = (event) => {
-
-        event.preventDefault();
-
-        startLogin({
-            email: loginEmail,
-            password: loginPassword,
-        });
-    };
+    const { loginEmail, loginPassword, onInputChange: onLoginInputChange } = useForm(loginFormFields);
 
     const login = useGoogleLogin({
         onSuccess: async (response) => {
@@ -56,19 +44,32 @@ export const LoginPage = () => {
         },
     });
 
+
+    const loginSubmit = (event) => {
+        event.preventDefault();
+        startLogin({
+            email: loginEmail,
+            password: loginPassword,
+        });
+
+    };
     useEffect(() => {
         if (errorMessage !== undefined) {
             Swal.fire('Error en la autenticación', errorMessage, 'error');
         }
     }, [ errorMessage ])
 
+    
+
 
     return (
+
+
         <div className="container">
             <div className="container-login">
                 <div className='group-form'>
                     <p>Ingreso</p>
-                    <form >
+                    <form onSubmit={loginSubmit}>
                         <div className="group-form">
                             <div className="icon-form">
                                 <i className="fa-solid fa-envelope"></i>
@@ -89,39 +90,44 @@ export const LoginPage = () => {
                                 type="password"
                                 placeholder="Contraseña"
                                 name="loginPassword"
+
                                 value={loginPassword}
                                 onChange={onLoginInputChange}
                             />
                         </div>
                         <div className="d-grid gap-2">
-                            <button 
-                                className="button-login"
-                                /* type="submit" */
-                                onClick={ loginSubmit }
-                                    >
-                                    <Link to={'/profile'}>Ingresar</Link>
-                                </button>
-                       
+                            <button className="button-login"
+                                type="submit">
+                                Ingresar
+                            </button>
                         </div>
+                         {/* <LoginGithub clientId="ac56fad434a3a3c1561e"
+            onSuccess={onSuccess}
+            onFailure={onFailure}
+          /> */}
                     </form>
                     <p className="text-2">o continuar con estos perfiles sociales</p>
                 </div>
-                <div className="continer-icon">
+                <div className="container-icon">
                     <div className="icon-style">
                         <i className="fa-brands fa-github"></i>
                     </div>
-                    <button className="icon-style" onClick={login}>
+                    <div className="icon-style" onClick={login}>
                         <i className="fa-brands fa-google"></i>
-                    </button>
+                    </div>
                 </div>
-                <p className="text-2">¿No tienes una cuenta? 
-                    <Link 
+                <p className="text-2">¿No tienes una cuenta?
+                    <Link
+                        component={RouterLink}
+                        color='inherit'
                         to='/auth/register'>
-                            <span>Registrate</span>
+                        <span>Registrate</span>
                     </Link>
                 </p>
 
             </div>
         </div>
+
+
     );
 };

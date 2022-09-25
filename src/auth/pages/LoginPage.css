@@ -68,8 +68,8 @@ span {
 	color: var(--color-icon);
 }
 
-
-.continer-icon {
+/* ICON STYLE */
+.container-icon {
 	display: flex;
 }
 

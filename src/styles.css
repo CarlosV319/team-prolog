@@ -1,11 +1,12 @@
 :root {
-  --color-primario: #ffffff;
-  --color-segundario: #2f80ed;
-  --color-border: #bdbdbd;
-  --font-color-primario: #333333;
-  --color-icon: #797979;
-  --width-input: 100%;
-  --fuente-primaria: "Noto Sans", noto-sans;
+	--color-primario: #ffffff;
+	--color-segundario: #2f80ed;
+	--color-border: #bdbdbd;
+	--btn-logout: #eb5757;
+	--font-color-primario: #333333;
+	--color-icon: #797979;
+	--width-input: 100%;
+	--fuente-primaria: 'Noto Sans', noto-sans;
 }
 * {
   padding: 0;
@@ -161,6 +162,7 @@ hr {
   border: 1px solid var(--color-border);
   border-radius: 5px;
   background-color: var(--color-primario);
+  cursor:pointer;
 }
 .font-color {
   color: var(--color-icon);
@@ -279,4 +281,11 @@ hr {
 		
 	  }
 
+}
+ @media(min-width: 1024px) {
+.btn-edit {
+
+	margin-left: 400px;
+
+}
 }
