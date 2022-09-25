@@ -99,3 +99,16 @@ span {
 	margin-left: 10px;
 	color: var(--color-icon);
 }
+/* .danger {
+	border: 1px solid red
+} */
+.p-danger {
+	display: inline-block;
+	text-align: start;
+	align-items: flex-start;
+	color: red;
+	font-size: 11px;
+}
+form input:focus {
+	outline: none;
+}

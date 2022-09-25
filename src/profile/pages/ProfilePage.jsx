@@ -2,14 +2,12 @@ import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useProfileStore } from '../../hooks/useProfileStore';
 import { Link } from 'react-router-dom';
-import { useAuthStore } from '../../hooks';
+
 
 
 export const ProfilePage = () => {
 
   const { setUserProfile } = useProfileStore();
-  // const { user } = useSelector( state => state.auth );
-  const { user } = useAuthStore();
   const { profileUser } = useSelector( state => state.profile );
 
   useEffect( () => {
@@ -48,7 +46,7 @@ export const ProfilePage = () => {
         <hr />
         <div className="df-col">
           <p className="text-mr font-color">NOMBRE</p>
-          <p>{ user?.name }</p>
+          <p>{ profileUser?.name }</p>
         </div>
         <hr />
         <div className="df-col">

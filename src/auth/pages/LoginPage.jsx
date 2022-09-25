@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
@@ -14,14 +14,32 @@ const loginFormFields = {
     loginPassword: '',
 }
 
+const formValidations = {
+  loginEmail: [ (value) => value.includes('@') & value.includes('.'), 'Email debe contener @ y "."'],
+  loginPassword: [ (value) => value.length >= 8, 
+                      'Contraseña debe incluir letras, numeros y tener al menos 8 caracteres.'],
+}
+
 export const LoginPage = () => {
 
+    const [ formSubmitted, setFormSubmitted ] = useState( false );
+
     const { errorMessage, startLogin } = useAuthStore();
-    const { loginEmail, loginPassword, onInputChange: onLoginInputChange } = useForm( loginFormFields );
+    const { loginEmail, 
+            loginPassword, 
+            onInputChange: onLoginInputChange,
+            isFormValid, 
+            loginEmailValid, 
+            loginPasswordValid } = useForm( loginFormFields, formValidations );
+
 
     const loginSubmit = (event) => {
 
         event.preventDefault();
+
+        setFormSubmitted(true);
+
+        if ( !isFormValid ) return;
 
         startLogin({
             email: loginEmail,
@@ -56,7 +74,8 @@ export const LoginPage = () => {
 
     useEffect(() => {
         if (errorMessage !== undefined) {
-            Swal.fire('Error en la autenticación', errorMessage, 'error');
+    
+            console.log("Mensaje de error (LoginPage, linea 60) " + errorMessage )
         }
     }, [ errorMessage ])
 
@@ -79,6 +98,9 @@ export const LoginPage = () => {
                                 onChange={onLoginInputChange}
                             />
                         </div>
+
+                        { !!loginEmailValid && formSubmitted ? (<p className="p-danger">{ loginEmailValid }</p>) : "" }
+
                         <div className="group-form">
                             <div className="icon-form">
                                 <i className="fa-solid fa-lock"></i>
@@ -91,6 +113,9 @@ export const LoginPage = () => {
                                 onChange={onLoginInputChange}
                             />
                         </div>
+
+                        { !!loginPasswordValid && formSubmitted ? (<p className="p-danger">{ loginPasswordValid }</p>) : "" }
+
                         <div className="d-grid gap-2">
                             <button 
                                 className="button-login"
