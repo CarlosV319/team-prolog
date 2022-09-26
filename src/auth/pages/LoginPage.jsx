@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 import { useGoogleLogin } from '@react-oauth/google';
-import Swal from 'sweetalert2';
 
 import { useForm, useAuthStore } from '../../hooks';
 import './LoginPage.css';
@@ -13,6 +12,7 @@ const loginFormFields = {
     loginEmail: '',
     loginPassword: '',
 }
+
 
 const formValidations = {
   loginEmail: [ (value) => value.includes('@') & value.includes('.'), 'Email debe contener @ y "."'],
@@ -32,20 +32,6 @@ export const LoginPage = () => {
             loginEmailValid, 
             loginPasswordValid } = useForm( loginFormFields, formValidations );
 
-
-    const loginSubmit = (event) => {
-
-        event.preventDefault();
-
-        setFormSubmitted(true);
-
-        if ( !isFormValid ) return;
-
-        startLogin({
-            email: loginEmail,
-            password: loginPassword,
-        });
-    };
 
     const login = useGoogleLogin({
         onSuccess: async (response) => {
@@ -72,6 +58,21 @@ export const LoginPage = () => {
         },
     });
 
+
+    const loginSubmit = (event) => {
+
+        event.preventDefault();
+
+        setFormSubmitted(true);
+
+        if ( !isFormValid ) return;
+
+        startLogin({
+            email: loginEmail,
+            password: loginPassword,
+        });
+    };
+
     useEffect(() => {
         if (errorMessage !== undefined) {
     
@@ -85,7 +86,7 @@ export const LoginPage = () => {
             <div className="container-login">
                 <div className='group-form'>
                     <p>Ingreso</p>
-                    <form >
+                    <form onSubmit={loginSubmit}>
                         <div className="group-form">
                             <div className="icon-form">
                                 <i className="fa-solid fa-envelope"></i>
@@ -119,11 +120,8 @@ export const LoginPage = () => {
                         <div className="d-grid gap-2">
                             <button 
                                 className="button-login"
-                                /* type="submit" */
-                                onClick={ loginSubmit }
-                                    >
-                                    <Link to={'/profile'}>Ingresar</Link>
-                                </button>
+                                type="submit"
+                                    >Ingresar</button>
                        
                         </div>
                     </form>

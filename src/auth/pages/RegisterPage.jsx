@@ -14,13 +14,15 @@ const registerFormFields = {
   registerPassword: "",
 };
 
-const alphanumeric = new RegExp(/^[A-Za-z0-9\s]/);
+const alphanumeric = new RegExp(/^[A-Za-z0-9\s]/g);
 
 const formValidations = {
   registerEmail: [ (value) => value.includes('@') & value.includes('.'), 'Email debe contener @ y "."'],
-  registerPassword: [ (value) => (alphanumeric.test(value) & value.length >= 8), 
+  registerPassword: [ (value) => (alphanumeric.test(value) && value.length >= 8), 
                       'Contraseña debe incluir letras, numeros y tener al menos 8 caracteres.'],
 }
+
+
 
 export const RegisterPage = () => {
 
@@ -38,6 +40,7 @@ export const RegisterPage = () => {
     registerPasswordValid,
   } = useForm( registerFormFields, formValidations );
 
+  // console.log( registerPasswordValid )
   
   const login = useGoogleLogin({
     onSuccess: async (response) => {

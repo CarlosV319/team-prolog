@@ -26,6 +26,7 @@ export const useAuthStore = () => {
             dispatch(onLogin({ name: data.name, uid: data.uid }));
 
             Swal.fire('Bienvenido!');
+            navigateTo( `/profile` );
 
         } catch (error) {
             console.log( error )
