@@ -1,0 +1,16 @@
+:root {
+	--color-primario: #ffffff;
+	--color-segundario: #2f80ed;
+	--color-border: #bdbdbd;
+	--btn-logout: #eb5757;
+	--font-color-primario: #333333;
+	--color-icon: #797979;
+	--width-input: 100%;
+	--fuente-primaria: 'Noto Sans', noto-sans;
+}
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: var(--fuente-primaria);
+}

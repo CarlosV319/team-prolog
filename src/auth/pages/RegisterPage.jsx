@@ -6,6 +6,7 @@ import axios from 'axios';
 import Swal from 'sweetalert2';
 import { Link as RouterLink } from 'react-router-dom';
 import { Link } from '@mui/material';
+import '../../styles.css';
 
 const registerFormFields = {
   registerEmail: "",

@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 
 import { useProfileStore } from "../../hooks/useProfileStore";
 import { useAuthStore } from "../../hooks";
+import '../../styles.css';
 
 const formFields = {
     name: '',
@@ -63,6 +64,7 @@ await updateUserProfile( formState );
           <i className="icon-mr fa-solid fa-right-from-bracket"></i>Salir
         </button>
       </div>
+      
       <div className="btn-atras-w">
         <Link className="btn-atras" to={"/profile"}>
           <i className=" icon-t fa-solid fa-angle-left"></i>Atrás
@@ -78,7 +80,8 @@ await updateUserProfile( formState );
 
             <form onSubmit={onSaveProfileChanges}>
               <div className="df-col">
-                <i className="fa-solid fa-user-secret size"></i>
+               { avatar ? <img src={avatar} alt="foto de perfil" /> :
+                <i className="fa-solid fa-user-secret size"></i>}
                 <span className="mr"></span>
                 <input
                   className="group-formt url"
@@ -105,7 +108,7 @@ await updateUserProfile( formState );
               <div>
                 <label className="label" htmlFor="biografía">biografía</label>
                 <textarea
-                 
+                  maxlength="20" 
                   className="biografia"
                   type="text"
                   id="biografía"
