@@ -1,12 +1,11 @@
-import React, { useEffect } from "react"
-import { Link as RouterLink } from "react-router-dom";
-import { Link } from '@mui/material';
-import axios from "axios";
-import Swal from "sweetalert2";
-import { useGoogleLogin } from "@react-oauth/google";
-// import LoginGithub from "react-login-github"; 
-import { useForm, useAuthStore } from "../../hooks";
-import './LoginPage.css';
+import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import axios from 'axios';
+
+import { useGoogleLogin } from '@react-oauth/google';
+
+import { useForm, useAuthStore } from '../../hooks';
+import '../../css/LoginPage.css' 
 
 
 const loginFormFields = {
@@ -14,10 +13,25 @@ const loginFormFields = {
     loginPassword: '',
 }
 
+
+const formValidations = {
+  loginEmail: [ (value) => value.includes('@') & value.includes('.'), 'Email debe contener @ y "."'],
+  loginPassword: [ (value) => value.length >= 8, 
+                      'Contraseña debe incluir letras, numeros y tener al menos 8 caracteres.'],
+}
+
 export const LoginPage = () => {
-    console.log()
+
+    const [ formSubmitted, setFormSubmitted ] = useState( false );
+
     const { errorMessage, startLogin } = useAuthStore();
-    const { loginEmail, loginPassword, onInputChange: onLoginInputChange } = useForm(loginFormFields);
+    const { loginEmail, 
+            loginPassword, 
+            onInputChange: onLoginInputChange,
+            isFormValid, 
+            loginEmailValid, 
+            loginPasswordValid } = useForm( loginFormFields, formValidations );
+
 
     const login = useGoogleLogin({
         onSuccess: async (response) => {
@@ -46,16 +60,23 @@ export const LoginPage = () => {
 
 
     const loginSubmit = (event) => {
+
         event.preventDefault();
+
+        setFormSubmitted(true);
+
+        if ( !isFormValid ) return;
+
         startLogin({
             email: loginEmail,
             password: loginPassword,
         });
-
     };
+
     useEffect(() => {
         if (errorMessage !== undefined) {
-            Swal.fire('Error en la autenticación', errorMessage, 'error');
+    
+            console.log("Mensaje de error (LoginPage, linea 60) " + errorMessage )
         }
     }, [ errorMessage ])
 
@@ -68,7 +89,7 @@ export const LoginPage = () => {
         <div className="container">
             <div className="container-login">
                 <div className='group-form'>
-                    <p>Ingreso</p>
+                    <p className='login-title'>Inicio de sesión</p>
                     <form onSubmit={loginSubmit}>
                         <div className="group-form">
                             <div className="icon-form">
@@ -82,6 +103,9 @@ export const LoginPage = () => {
                                 onChange={onLoginInputChange}
                             />
                         </div>
+
+                        { !!loginEmailValid && formSubmitted ? (<p className="p-danger">{ loginEmailValid }</p>) : "" }
+
                         <div className="group-form">
                             <div className="icon-form">
                                 <i className="fa-solid fa-lock"></i>
@@ -95,16 +119,15 @@ export const LoginPage = () => {
                                 onChange={onLoginInputChange}
                             />
                         </div>
+
+                        { !!loginPasswordValid && formSubmitted ? (<p className="p-danger">{ loginPasswordValid }</p>) : "" }
+
                         <div className="d-grid gap-2">
                             <button className="button-login"
                                 type="submit">
-                                Ingresar
+                                Iniciar sesión
                             </button>
                         </div>
-                         {/* <LoginGithub clientId="ac56fad434a3a3c1561e"
-            onSuccess={onSuccess}
-            onFailure={onFailure}
-          /> */}
                     </form>
                     <p className="text-2">o continuar con estos perfiles sociales</p>
                 </div>
@@ -118,7 +141,7 @@ export const LoginPage = () => {
                 </div>
                 <p className="text-2">¿No tienes una cuenta?
                     <Link
-                        component={RouterLink}
+                     
                         color='inherit'
                         to='/auth/register'>
                         <span>Registrate</span>

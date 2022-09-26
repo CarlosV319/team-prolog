@@ -33,8 +33,15 @@ export const useProfileStore = () => {
 
         dispatch( onUpdateUserProfile( { ...profileUser, user} ) );
 
+        setTimeout(() => {
+          Swal.fire({
+            title: 'Perfil actualizado correctamente',
+            icon: 'success'
+          });
+        }, 10);
+        
         navigateTo( `/profile` );
-  
+        
         return;
       }
 

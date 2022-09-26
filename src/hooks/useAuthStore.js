@@ -1,5 +1,8 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+
+import Swal from 'sweetalert2';
+
 import { pageApi } from '../api/pageApi';
 import { clearErrorMessage, onChecking, onLogin, onLogout, } from '../store';
 
@@ -22,7 +25,12 @@ export const useAuthStore = () => {
             localStorage.setItem('token-init-date', new Date().getTime());
             dispatch(onLogin({ name: data.name, uid: data.uid }));
 
+            Swal.fire('Bienvenido!');
+            navigateTo( `/profile` );
+
         } catch (error) {
+            console.log( error )
+            Swal.fire('Error en la autenticación', error.response.data?.msg, 'error');
             dispatch(onLogout('Credenciales incorrectas'));
             setTimeout(() => {
                 dispatch(clearErrorMessage());
@@ -39,10 +47,13 @@ export const useAuthStore = () => {
             localStorage.setItem('token', data.token);
             localStorage.setItem('token-init-date', new Date().getTime());
             dispatch(onLogin({ name: data.name, uid: data.uid }));
-            navigateTo(`/profile/${data.uid}`);
+            Swal.fire('Usuario creado correctamente', 'Por favor complete su perfil', 'success');
+            navigateTo( `/profile/${ data.uid }` );
 
         } catch (error) {
-            dispatch(startLogout(error.response.data?.msg || 'add a valid email or password'));
+            console.log( error )
+            Swal.fire('Error al crear usuario', error.response.data?.msg, 'error');
+            dispatch(onLogout(error.response.data?.msg || 'add valid email or password'));
             setTimeout(() => {
                 dispatch(clearErrorMessage());
             }, 10);

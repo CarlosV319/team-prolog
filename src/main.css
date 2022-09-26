@@ -1,12 +1,13 @@
 :root {
 	--color-primario: #ffffff;
 	--color-segundario: #2f80ed;
-	--color-border: #bdbdbd;
+	--color-border: #BDBDBD;
 	--btn-logout: #eb5757;
 	--font-color-primario: #333333;
-	--color-icon: #797979;
+	--color-icon: #BDBDBD;
 	--width-input: 100%;
 	--fuente-primaria: 'Noto Sans', noto-sans;
+	--color-perfil-subtitulo:#828282;
 }
 * {
   padding: 0;

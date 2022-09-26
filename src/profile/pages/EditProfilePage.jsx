@@ -1,11 +1,12 @@
-import { useEffect /* , useState */ } from 'react';
+import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useForm } from '../../hooks';
 import { Link } from 'react-router-dom';
 
+
 import { useProfileStore } from "../../hooks/useProfileStore";
 import { useAuthStore } from "../../hooks";
-import '../../styles.css';
+import '../../css/stylesc.css' 
 
 const formFields = {
     name: '',
@@ -19,7 +20,8 @@ const formFields = {
 
 export const EditProfilePage = () => {
   const { startLogout } = useAuthStore();
-
+ 
+  
   const { name,
     avatar,
     bio,
@@ -29,12 +31,14 @@ export const EditProfilePage = () => {
     formState,
     setFormState,
     onInputChange } = useForm( formFields );
-
-const { profileUser } = useSelector( state => state.profile );
+    
+    const { profileUser } = useSelector( state => state.profile );
+   
 
 const { setUserProfile } = useProfileStore();
 
 const { updateUserProfile } = useProfileStore()
+
 
 useEffect(() => {
 
@@ -79,7 +83,7 @@ await updateUserProfile( formState );
             </p>
 
             <form onSubmit={onSaveProfileChanges}>
-              <div className="df-col">
+              <div className="div-photo">
                { avatar ? <img src={avatar} alt="foto de perfil" /> :
                 <i className="fa-solid fa-user-secret size"></i>}
                 <span className="mr"></span>

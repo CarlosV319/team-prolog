@@ -1,27 +1,47 @@
-import { useEffect } from 'react';
-import { useForm, useAuthStore } from '../../hooks';
+import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { useGoogleLogin } from '@react-oauth/google';
-import axios from 'axios';
 
+import axios from 'axios';
 import Swal from 'sweetalert2';
-import { Link as RouterLink } from 'react-router-dom';
-import { Link } from '@mui/material';
-import '../../styles.css';
+import '../../css/stylesc.css' 
+
+import { useForm, useAuthStore } from '../../hooks';
 
 const registerFormFields = {
   registerEmail: "",
   registerPassword: "",
 };
 
+const alphanumeric = new RegExp(/^[A-Za-z0-9\s]/g);
+
+const formValidations = {
+  registerEmail: [ (value) => value.includes('@') & value.includes('.'), 'Email debe contener @ y "."'],
+  registerPassword: [ (value) => (alphanumeric.test(value) && value.length >= 8), 
+                      'Contraseña debe incluir letras, numeros y tener al menos 8 caracteres.'],
+}
+
+
+
 export const RegisterPage = () => {
 
+  const [ formSubmitted, setFormSubmitted ] = useState( false );
+
+  const { status } = useSelector( state => state.auth );
+  
   const { errorMessage, startRegister } = useAuthStore();
   const {
     registerEmail,
     registerPassword,
     onInputChange: onRegisterInputChange,
-  } = useForm(registerFormFields);
+    isFormValid, 
+    registerEmailValid, 
+    registerPasswordValid,
+  } = useForm( registerFormFields, formValidations );
 
+  // console.log( registerPasswordValid )
+  
   const login = useGoogleLogin({
     onSuccess: async (response) => {
       try {
@@ -50,11 +70,15 @@ export const RegisterPage = () => {
 
   const registerSubmit = (event) => {
     event.preventDefault();
+
+    setFormSubmitted(true);
+
+    if ( !isFormValid ) return;
+
     startRegister({
       email: registerEmail,
       password: registerPassword,
     });
-
   };
   useEffect(() => {
     if (errorMessage !== undefined) {
@@ -87,6 +111,9 @@ export const RegisterPage = () => {
               onChange={onRegisterInputChange}
             />
           </div>
+
+            { !!registerEmailValid && formSubmitted ? (<p className="p-danger">{ registerEmailValid }</p>) : "" }
+
           <div className="group-form">
             <div className="icon-form">
               <i className="fa-solid fa-lock"></i>
@@ -99,6 +126,8 @@ export const RegisterPage = () => {
               onChange={onRegisterInputChange}
             />
           </div>
+
+          { !!registerPasswordValid && formSubmitted ? (<p className="p-danger">{ registerPasswordValid }</p>) : "" }
 
           <button className="button-register" type="submit">
             Registrarse
@@ -116,7 +145,6 @@ export const RegisterPage = () => {
 
         <p className="text-2">¿Ya tiene una cuenta? 
         <Link
-              component={RouterLink}
               color='inherit'
               to='/auth/login'>
           <span>Ingresar</span>

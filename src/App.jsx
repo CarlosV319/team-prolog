@@ -17,10 +17,6 @@ export const App = () => {
           <GoogleOAuthProvider clientId="460270658005-htl3tult9jvji943gkbtd4btams77pd4.apps.googleusercontent.com">
             <AppRouter />
           </GoogleOAuthProvider>
-          {/* <LoginGithub clientId="ac56fad434a3a3c1561e"
-            onSuccess={onSuccess}
-            onFailure={onFailure}
-          /> */}
         </BrowserRouter>
       </Provider>
     </>

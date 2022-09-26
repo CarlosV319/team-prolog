@@ -5,7 +5,7 @@ export const profileSlice = createSlice({
     name: 'profile',
     initialState: {
         isLoadingProfile: true,
-        profileUser: null
+        profileUser: {}
     },
     reducers: {
         onSetUserProfile: ( state, { payload } ) => {
