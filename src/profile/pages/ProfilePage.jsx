@@ -12,11 +12,12 @@ export const ProfilePage = () => {
 
     const { setUserProfile } = useProfileStore();
     const { profileUser } = useSelector(state => state.profile);
-console.log(profileUser?.bio)
+
     useEffect(() => {
 
         setUserProfile();
     }, []);
+    
 
     return (
         <>
@@ -52,7 +53,7 @@ console.log(profileUser?.bio)
                     </div>
                     <div className="df-col-photo">
                         <p className="text-mr font-color">FOTO</p>
-                        { profileUser.avatar ? <img src={profileUser.avatar} alt="foto de perfil" /> :
+                        { profileUser?.avatar ? <img src={profileUser?.avatar} alt="foto de perfil" /> :
                 <i className="fa-solid fa-user-secret size"></i>}
                     </div>
                     <hr />

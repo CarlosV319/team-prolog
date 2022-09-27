@@ -7,7 +7,6 @@ import { ProfileRoutes } from '../profile/routes/ProfileRoutes';
 import { useAuthStore } from '../hooks';
 
 
-
 export const AppRouter = () => {
 
 const { status, checkAuthToken } = useAuthStore();
@@ -23,7 +22,7 @@ const lastPath = pathname;
         checkAuthToken();
     }, [])
 
-    console.log(status)
+    // console.log(status)
 
     if (status === 'checking') {
         return (

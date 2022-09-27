@@ -2,8 +2,6 @@ import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useForm } from '../../hooks';
 import { Link } from 'react-router-dom';
-import { ncrypt } from 'ncrypt-js';
-
 
 import { useProfileStore } from "../../hooks/useProfileStore";
 import { useAuthStore } from "../../hooks";
@@ -61,18 +59,6 @@ const onSaveProfileChanges = async( event ) => {
 
 }
 
-  const data = profileUser.password;
-  const _secretKey = profileUser.email;
-
-  const ncryptObject = new ncrypt(_secretKey);
-  // const encryptedData = ncryptObject.encrypt(data);
-
-  console.log("Contraseña UPDATE encriptado    : " + data );
-
-  const decryptedData = ncryptObject.decrypt( data );
-  console.log("_secretKey UPDATE desencriptada   : " + decryptedData);
-
-
   return (
     <>
       <div>
@@ -100,7 +86,7 @@ const onSaveProfileChanges = async( event ) => {
                 <i className="fa-solid fa-user-secret size"></i>}
                 <span className="mr"></span>
                 <input
-                  className="group-formt url"
+                  className="margin url"
                   type="url"
                   id="avatar"
                   placeholder="CAMBIAR FOTO"
@@ -112,7 +98,7 @@ const onSaveProfileChanges = async( event ) => {
               <div>
                 <label className="label" htmlFor="nombre">Nombre</label>
                 <input
-                  className="group-form"
+                  className="margin"
                   type="text"
                   id="nombre"
                   placeholder="Ingresa tu nombre..."
@@ -124,7 +110,7 @@ const onSaveProfileChanges = async( event ) => {
               <div>
                 <label className="label" htmlFor="biografía">biografía</label>
                 <textarea
-                  maxlength="20" 
+                  maxLength="20" 
                   className="biografia"
                   type="text"
                   id="biografía"
@@ -137,7 +123,7 @@ const onSaveProfileChanges = async( event ) => {
               <div>
                 <label className="label" htmlFor="teléfono">Teléfono</label>
                 <input
-                  className="group-form"
+                  className="margin"
                   type="tel"
                   id="teléfono"
                   placeholder="Ingresa tu teléfono..."
@@ -149,7 +135,7 @@ const onSaveProfileChanges = async( event ) => {
               <div>
                 <label className="label" htmlFor="email">email</label>
                 <input
-                  className="group-form"
+                  className="margin"
                   type="email"
                   id="email"
                   placeholder="Ingresa tu email..."
@@ -162,7 +148,9 @@ const onSaveProfileChanges = async( event ) => {
               <div>
                 <label className="label" htmlFor="contraseña">contraseña</label>
                 <input
-                  className="group-form"
+                  minLength="8"
+                  maxLength="15"
+                  className="margin"
                   type="password"
                   id="contraseña"
                   placeholder="Ingresa tu contraseña..."

@@ -12,12 +12,12 @@ const loginFormFields = {
     loginEmail: '',
     loginPassword: '',
 }
-
+const patt = /^([a-zA-Z0-9_-]){1,16}$/;
 
 const formValidations = {
   loginEmail: [ (value) => value.includes('@') & value.includes('.'), 'Email debe contener @ y "."'],
-  loginPassword: [ (value) => value.length >= 8, 
-                      'Contraseña debe incluir letras, numeros y tener al menos 8 caracteres.'],
+  loginPassword: [ (value) =>  value.length > 7, 
+                    'Contraseña debe incluir letras, numeros y tener al menos 8 caracteres.'],
 }
 
 export const LoginPage = () => {
@@ -31,7 +31,8 @@ export const LoginPage = () => {
             isFormValid, 
             loginEmailValid, 
             loginPasswordValid } = useForm( loginFormFields, formValidations );
-
+    
+    console.log( {loginPasswordValid} );
 
     const login = useGoogleLogin({
         onSuccess: async (response) => {
@@ -114,7 +115,6 @@ export const LoginPage = () => {
                                 type="password"
                                 placeholder="Contraseña"
                                 name="loginPassword"
-
                                 value={loginPassword}
                                 onChange={onLoginInputChange}
                             />
