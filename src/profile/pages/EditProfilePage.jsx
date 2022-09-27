@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useForm } from '../../hooks';
 import { Link } from 'react-router-dom';
+import { ncrypt } from 'ncrypt-js';
 
 
 import { useProfileStore } from "../../hooks/useProfileStore";
@@ -32,12 +33,11 @@ export const EditProfilePage = () => {
     setFormState,
     onInputChange } = useForm( formFields );
     
-    const { profileUser } = useSelector( state => state.profile );
-   
+const { profileUser } = useSelector( state => state.profile );
 
 const { setUserProfile } = useProfileStore();
 
-const { updateUserProfile } = useProfileStore()
+const { updateUserProfile } = useProfileStore();
 
 
 useEffect(() => {
@@ -55,11 +55,23 @@ setUserProfile();
 
 const onSaveProfileChanges = async( event ) => {
 
-event.preventDefault();
+  event.preventDefault();
 
-await updateUserProfile( formState );
+  await updateUserProfile( formState );
 
 }
+
+  const data = profileUser.password;
+  const _secretKey = profileUser.email;
+
+  const ncryptObject = new ncrypt(_secretKey);
+  // const encryptedData = ncryptObject.encrypt(data);
+
+  console.log("Contraseña UPDATE encriptado    : " + data );
+
+  const decryptedData = ncryptObject.decrypt( data );
+  console.log("_secretKey UPDATE desencriptada   : " + decryptedData);
+
 
   return (
     <>
