@@ -12,7 +12,6 @@ const loginFormFields = {
     loginEmail: '',
     loginPassword: '',
 }
-const patt = /^([a-zA-Z0-9_-]){1,16}$/;
 
 const formValidations = {
   loginEmail: [ (value) => value.includes('@') & value.includes('.'), 'Email debe contener @ y "."'],
