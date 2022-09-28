@@ -1,12 +1,9 @@
 import { Provider } from "react-redux";
 import { GoogleOAuthProvider } from "@react-oauth/google";
-import { BrowserRouter, HashRouter } from "react-router-dom";
+import { HashRouter } from "react-router-dom";
 
 import { AppRouter } from "./router";
 import { store } from "./store";
-
-const onSuccess = response => console.log(response);
-const onFailure = response => console.error(response);
 
 
 export const App = () => {

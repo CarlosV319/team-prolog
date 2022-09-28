@@ -18,9 +18,6 @@ export const profileSlice = createSlice({
             state.profileUser = payload;
             
             console.log( {payload} )
-
-            // return payload;
-
         },
 
         onLoadProfile: ( state ) => {

@@ -86,10 +86,6 @@ p.font {
   cursor: pointer;
 }
 
-.width-p {
-  width: 70%;
-}
-
 form {
   width: var(--width-input);
 }

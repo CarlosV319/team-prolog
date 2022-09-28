@@ -124,6 +124,9 @@ span {
   background-color: var(--color-primario);
   cursor: pointer;
 }
+.icon-style:hover {
+  border: 1px solid var(--color-segundario);
+}
 .icon-form {
   margin-left: 10px;
   color: var(--color-icon);
@@ -274,7 +277,7 @@ img {
     width: 100%;
   }
   .container-perfil {
-    width: 70%;
+    width: 90%;
   }
 }
 @media (max-width: 590px) {

@@ -82,7 +82,7 @@ export const ProfilePage = () => {
                     <div className="df-col">
                         <p className="text-mr font-color">CONTRASEÑA</p>
 
-                        <p className='font-c'>{profileUser?.password}</p>
+                        <p className='font-c'> ************** </p>
                     </div>
                 </div>
             </div>

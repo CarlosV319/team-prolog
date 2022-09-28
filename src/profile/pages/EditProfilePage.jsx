@@ -12,7 +12,7 @@ const formFields = {
     avatar: '',
     bio: '',
     email: '',
-    password: '',
+    password: undefined,
     phoneNumber: '',
 }
 
@@ -108,9 +108,9 @@ const onSaveProfileChanges = async( event ) => {
                 />
               </div>
               <div>
-                <label className="label" htmlFor="biografía">biografía</label>
+                <label className="label" htmlFor="biografía">Biografía</label>
                 <textarea
-                  maxLength="20" 
+                  maxLength="65" 
                   className="biografia"
                   type="text"
                   id="biografía"
@@ -133,7 +133,7 @@ const onSaveProfileChanges = async( event ) => {
                 />
               </div>
               <div>
-                <label className="label" htmlFor="email">email</label>
+                <label className="label" htmlFor="email">Email</label>
                 <input
                   className="margin"
                   type="email"
@@ -146,16 +146,17 @@ const onSaveProfileChanges = async( event ) => {
                 />
               </div>
               <div>
-                <label className="label" htmlFor="contraseña">contraseña</label>
+                <label className="label" htmlFor="contraseña">Contraseña</label>
                 <input
-                  minLength="8"
-                  maxLength="15"
                   className="margin"
                   type="password"
                   id="contraseña"
-                  placeholder="Ingresa tu contraseña..."
+                  placeholder="Ingresa tu nueva contraseña..."
                   name="password"
-                  value={password}
+                  minLength="8" 
+                  maxLength="15"
+                  pattern="^(?:[0-9]+[a-z]|[a-z]+[0-9])[a-z0-9]*$"
+                  value={ password }
                   onChange={onInputChange}
                 />
               </div>

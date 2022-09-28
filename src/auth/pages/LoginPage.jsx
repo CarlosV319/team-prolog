@@ -13,25 +13,14 @@ const loginFormFields = {
     loginPassword: '',
 }
 
-const formValidations = {
-  loginEmail: [ (value) => value.includes('@') & value.includes('.'), 'Email debe contener @ y "."'],
-  loginPassword: [ (value) =>  value.length > 7, 
-                    'Contraseña debe incluir letras, numeros y tener al menos 8 caracteres.'],
-}
-
 export const LoginPage = () => {
 
-    const [ formSubmitted, setFormSubmitted ] = useState( false );
-
     const { errorMessage, startLogin } = useAuthStore();
+
     const { loginEmail, 
             loginPassword, 
-            onInputChange: onLoginInputChange,
-            isFormValid, 
-            loginEmailValid, 
-            loginPasswordValid } = useForm( loginFormFields, formValidations );
+            onInputChange: onLoginInputChange } = useForm( loginFormFields );
     
-    console.log( {loginPasswordValid} );
 
     const login = useGoogleLogin({
         onSuccess: async (response) => {
@@ -62,10 +51,6 @@ export const LoginPage = () => {
     const loginSubmit = (event) => {
 
         event.preventDefault();
-
-        setFormSubmitted(true);
-
-        if ( !isFormValid ) return;
 
         startLogin({
             email: loginEmail,
@@ -99,12 +84,12 @@ export const LoginPage = () => {
                                 type="email"
                                 placeholder="Email"
                                 name="loginEmail"
+                                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                                required
                                 value={loginEmail}
                                 onChange={onLoginInputChange}
                             />
                         </div>
-
-                        { !!loginEmailValid && formSubmitted ? (<p className="p-danger">{ loginEmailValid }</p>) : "" }
 
                         <div className="group-form">
                             <div className="icon-form">
@@ -114,12 +99,14 @@ export const LoginPage = () => {
                                 type="password"
                                 placeholder="Contraseña"
                                 name="loginPassword"
+                                minLength="8" 
+                                maxLength="15"
+                                pattern="^(?:[0-9]+[a-z]|[a-z]+[0-9])[a-z0-9]*$"
+                                required
                                 value={loginPassword}
                                 onChange={onLoginInputChange}
                             />
                         </div>
-
-                        { !!loginPasswordValid && formSubmitted ? (<p className="p-danger">{ loginPasswordValid }</p>) : "" }
 
                         <div className="d-grid gap-2">
                             <button className="button-login"
