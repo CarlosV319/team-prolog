@@ -103,8 +103,8 @@ export const RegisterPage = () => {
               name="registerPassword"
               minLength="8" 
               maxLength="15"
-              pattern="^(?:[0-9]+[a-z]|[a-z]+[0-9])[a-z0-9]*$"
-              required
+              
+              
               value={registerPassword}
               onChange={onRegisterInputChange}
             />
